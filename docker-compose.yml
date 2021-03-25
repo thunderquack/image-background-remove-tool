@@ -1,0 +1,19 @@
+version: "3.7"
+
+services:
+    imgbackremove:
+        build: .
+        cap_add:
+         - ALL
+        restart: always
+        container_name: "imgbackremove"
+        hostname: imgbackremove
+        volumes:
+          - .:./app
+        dns:
+         - 8.8.8.8
+         - 8.8.4.4
+        deploy:
+            resources:
+                limits:
+                    memory: 150M
