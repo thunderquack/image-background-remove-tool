@@ -35,11 +35,11 @@ RUN pip3 install tensorflow==2.4.1 --no-cache-dir
 
 #RUN pip3 install -r /app/requirements.txt --no-cache-dir
 
-WORKDIR /app
-
 COPY ./app /app
 
-RUN ./app/setup.sh
+WORKDIR /app
+
+RUN cd tools && python setup.py
 
 ENTRYPOINT [ "python3" ]
 
