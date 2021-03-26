@@ -140,9 +140,9 @@ def setup():
                     pass
 
 
-def cli():
-    print("Choose which model you want to install:\n{}\nall".format('\n'.join(MODELS_NAMES)))
-    model_name = input("Enter model name: ")
+def cli(model_name):
+    #print("Choose which model you want to install:\n{}\nall".format('\n'.join(MODELS_NAMES)))
+    #model_name = input("Enter model name: ")
     if model_name == "all":
         setup()
     elif model_name == "u2net":
@@ -188,10 +188,10 @@ def cli():
         if os.path.exists(path_mn):  # Clean old files
             os.remove(path_mn)
     else:
-        print("ERROR! You specified an invalid model type! EXIT!")
+        print("ERROR! You have specified an invalid model type! EXIT!")
         exit(1)
-    print("Setup finished! :)")
+    print("Setup is finished! :)")
 
 
 if __name__ == "__main__":
-    cli()
+    cli('all')
