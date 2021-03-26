@@ -11,9 +11,6 @@ services:
         volumes:
          - ./temp:/temp
          - ./web:/web
-        dns:
-         - 8.8.8.8
-         - 8.8.4.4
         ports:
          - "5000:5000"
         deploy:
