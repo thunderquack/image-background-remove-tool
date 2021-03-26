@@ -41,6 +41,8 @@ WORKDIR /app
 
 RUN cd tools && python setup.py
 
+WORKDIR /web
+
 ENTRYPOINT [ "python3" ]
 
-CMD [ "app/app.py" ]
+CMD [ "web.py" ]
