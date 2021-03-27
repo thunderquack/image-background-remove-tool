@@ -13,15 +13,17 @@ RUN wget https://github.com/unxed/far2l-deb/raw/master/far2l_2.2%7Eubuntu18.04_a
 
 RUN dpkg -i far2l_2.2~ubuntu18.04_amd64.deb >> /dev/null
 
-COPY ./app /app
+COPY ./app/requirements.txt /app/requirements.txt
 
 RUN pip3 install -r /app/requirements.txt --no-cache-dir
+
+COPY ./app /app
 
 WORKDIR /app
 
 RUN cd tools && python setup.py
 
-WORKDIR /web
+#WORKDIR /web
 
 ENTRYPOINT [ "python3" ]
 

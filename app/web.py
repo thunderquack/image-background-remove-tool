@@ -1,8 +1,11 @@
 # web/web.py
 
+import sys
 import os
 from flask import Flask, flash, request, redirect, url_for
 from werkzeug.utils import secure_filename
+
+import main
 
 UPLOAD_FOLDER = '/temp'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
@@ -38,9 +41,13 @@ def upload_file():
             print(file.filename)
             filename = secure_filename(file.filename)
             print(filename)
-            file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            return redirect(url_for('uploaded_file',
-                                    filename=filename))
+            fullName = os.path.join(app.config['UPLOAD_FOLDER'], filename)
+            file.save(fullName)
+            process(fullName, '/temp/out.jpg')
+            #os.system('./main.py -i '+ fullName +
+            #          ' -o /temp/temp.jpg -m basnet -prep bbd-fastrcnn -postp rtb-bnb')
+            return fullName
+
     return '''
     <!doctype html>
     <title>Upload new File</title>
@@ -53,5 +60,5 @@ def upload_file():
 
 
 if __name__ == '__main__':
-    app.secret_key = 'password' #hahaha
+    app.secret_key = 'password'  # hahaha
     app.run(debug=True, host='0.0.0.0')
