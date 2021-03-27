@@ -16,8 +16,8 @@ from inspect import getmembers, isfunction
 #sys.modules[spec.name] = main
 #spec.loader.exec_module(main)
 
-sys.path.append("/app/")
-import main
+#sys.path.append("/app/")
+#import main
 
 UPLOAD_FOLDER = '/temp'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
@@ -53,9 +53,10 @@ def upload_file():
             filename = secure_filename(file.filename)
             fullName = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             file.save(fullName)
-            func = getmembers(main)
+            #func = getmembers(main)
             try:
-                main.process_image(fullName, '/temp/out.jpg')
+                func = 'ok'
+                #main.process_image(fullName, '/temp/out.jpg')
             except Exception:
                 func = Exception
             #os.system('./main.py -i '+ fullName +

@@ -1,4 +1,4 @@
-FROM python:3.8.8
+FROM debian:10
 
 LABEL Author=ty@pidor.de
 
@@ -7,11 +7,13 @@ RUN apt-get update -y && \
 
 RUN apt-get install -y libwxgtk3.0-dev libwxgtk3.0-gtk3-dev libuchardet-dev \
                         libarchive-dev libxerces-c-dev libspdlog-dev libssh-dev \
-                        libsmbclient-dev libnfs-dev
+                        libsmbclient-dev libnfs-dev libpcre3-dev wget
 
 RUN wget https://github.com/unxed/far2l-deb/raw/master/far2l_2.2%7Eubuntu18.04_amd64.deb
 
 RUN dpkg -i far2l_2.2~ubuntu18.04_amd64.deb >> /dev/null
+
+RUN apt install -y python3 python3-pip
 
 COPY ./app/requirements.txt /app/requirements.txt
 

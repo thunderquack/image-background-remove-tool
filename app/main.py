@@ -79,7 +79,7 @@ def __save_image_file__(img, file_name, output_path, wmode):
         img.save(os.path.join(output_path, file_name))
 
 
-def process_image(input_path, output_path, model_name="u2net",
+def process(input_path, output_path, model_name="u2net",
             preprocessing_method_name="bbd-fastrcnn", postprocessing_method_name="rtb-bnb"):
     """
     Processes the file.
@@ -89,7 +89,6 @@ def process_image(input_path, output_path, model_name="u2net",
     :param postprocessing_method_name: Method for image preprocessing
     :param preprocessing_method_name: Method for image post-processing
     """
-
     if input_path is None or output_path is None:
         raise Exception("Bad parameters! Please specify input path and output path.")
 
@@ -107,7 +106,7 @@ def process_image(input_path, output_path, model_name="u2net",
         image = model.process_image(input_path, preprocessing_method, postprocessing_method)
         __save_image_file__(image, os.path.basename(input_path), output_path, wmode)
     elif wmode == "dir":  # Dir work mode
-        # Start process_image
+        # Start process
         files = os.listdir(input_path)
         for file in tqdm.tqdm(files, ascii=True, desc='Remove Background', unit='image'):
             file_path = os.path.join(input_path, file)
@@ -146,7 +145,7 @@ def cli():
     if model_name == "test":
         print(input_path, output_path, model_name, preprocessing_method_name, postprocessing_method_name)
     else:
-        process_image(input_path, output_path, model_name, preprocessing_method_name, postprocessing_method_name)
+        process(input_path, output_path, model_name, preprocessing_method_name, postprocessing_method_name)
 
 
 if __name__ == "__main__":
