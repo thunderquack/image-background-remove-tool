@@ -27,4 +27,4 @@ RUN cd tools && python setup.py
 
 ENTRYPOINT [ "python3" ]
 
-CMD [ "web.py" ]
+CMD [ "/web/web.py" ]

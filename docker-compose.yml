@@ -1,19 +1,19 @@
 version: "3.7"
 
 services:
-    imgbackremove:
-        build: .
-        cap_add:
-         - ALL
-        restart: always
-        container_name: "imgbackremove"
-        hostname: imgbackremove
-        volumes:
-         - ./temp:/temp
-         - ./web:/web
-        ports:
-         - "5000:5000"
-        deploy:
-            resources:
-                limits:
-                    memory: 150M
+  imgbackremove:
+    build: .
+    cap_add:
+      - ALL
+    restart: always
+    container_name: "imgbackremove"
+    hostname: imgbackremove
+    volumes:
+      - ./temp:/temp
+      - ./web:/web
+    ports:
+      - "5000:5000"
+    deploy:
+      resources:
+        limits:
+          memory: 150M

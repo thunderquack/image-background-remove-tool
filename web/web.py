@@ -2,9 +2,21 @@
 
 import sys
 import os
+import importlib.util
 from flask import Flask, flash, request, redirect, url_for
 from werkzeug.utils import secure_filename
+from inspect import getmembers, isfunction
 
+#MODULE_PATH = "/app/main.py"
+#MODULE_NAME = "main"
+#import importlib
+#import sys
+#spec = importlib.util.spec_from_file_location(MODULE_NAME, MODULE_PATH)
+#main = importlib.util.module_from_spec(spec)
+#sys.modules[spec.name] = main
+#spec.loader.exec_module(main)
+
+sys.path.append("/app/")
 import main
 
 UPLOAD_FOLDER = '/temp'
@@ -38,15 +50,18 @@ def upload_file():
             flash('No selected file')
             return redirect(request.url)
         if file and allowed_file(file.filename):
-            print(file.filename)
             filename = secure_filename(file.filename)
-            print(filename)
             fullName = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             file.save(fullName)
-            process(fullName, '/temp/out.jpg')
+            func = getmembers(main)
+            try:
+                main.process_image(fullName, '/temp/out.jpg')
+            except Exception:
+                func = Exception
             #os.system('./main.py -i '+ fullName +
             #          ' -o /temp/temp.jpg -m basnet -prep bbd-fastrcnn -postp rtb-bnb')
-            return fullName
+            return str(func)
+            return "OK"
 
     return '''
     <!doctype html>
