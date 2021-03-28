@@ -3,7 +3,7 @@
 import sys
 import os
 import importlib.util
-from flask import Flask, flash, request, redirect, url_for
+from flask import Flask, flash, request, redirect, url_for, send_file
 from werkzeug.utils import secure_filename
 from inspect import getmembers, isfunction
 
@@ -16,8 +16,8 @@ from inspect import getmembers, isfunction
 #sys.modules[spec.name] = main
 #spec.loader.exec_module(main)
 
-#sys.path.append("/app/")
-#import main
+sys.path.append("/app/")
+import main
 
 UPLOAD_FOLDER = '/temp'
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg'}
@@ -53,16 +53,11 @@ def upload_file():
             filename = secure_filename(file.filename)
             fullName = os.path.join(app.config['UPLOAD_FOLDER'], filename)
             file.save(fullName)
-            #func = getmembers(main)
             try:
-                func = 'ok'
-                #main.process_image(fullName, '/temp/out.jpg')
+                main.process(fullName, '/temp/out.png')
             except Exception:
-                func = Exception
-            #os.system('./main.py -i '+ fullName +
-            #          ' -o /temp/temp.jpg -m basnet -prep bbd-fastrcnn -postp rtb-bnb')
-            return str(func)
-            return "OK"
+                return Exception
+            return send_file('/temp/out.png')
 
     return '''
     <!doctype html>
